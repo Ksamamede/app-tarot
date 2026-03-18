@@ -1,0 +1,654 @@
+/* 1. VARIÁVEIS E CORES */
+:root {
+    --cor-fundo-base: #0a0e1a;
+    --cor-fundo-gradiente: #2e1a47;
+    --cor-dourado-texto: #ffe4b5;
+    --cor-dourado-brilho: #ffd700;
+    --cor-texto-corpo: #d1d5db;
+    /* Um cinza lunar suave */
+    --cor-perola: #f4f1ea;
+    /* Um off-white que lembra papel antigo ou luz da lua */
+    --cor-vermelho-rubi: #c21e56;
+    --fonte-titulo: 'Cinzel', serif;
+    --fonte-texto: 'Montserrat', sans-serif;
+}
+
+/* 2. RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 3. ESTRUTURA DO CORPO */
+body {
+    margin: 0;
+    min-height: 100vh;
+    width: 100%;
+
+    /* O GRADIENTE: Escuro nas pontas e transparente no meio */
+    background-image:
+        linear-gradient(rgba(10, 14, 26, 0.85) 0%,
+            /* Topo bem escuro para o título */
+            rgba(10, 14, 26, 0.1) 40%,
+            /* Clareia para ver o rosto */
+            rgba(10, 14, 26, 0.1) 60%,
+            /* Mantém claro no centro */
+            rgba(10, 14, 26, 0.85) 100%
+            /* Base escura para o botão */
+        ),
+        url('imagens/Home.png');
+
+    /* CONFIGURAÇÕES DE IMAGEM: Isso impede que ela se divida ao meio */
+    background-size: cover;
+    background-position: top center;
+    /* Fixa todas as telas no céu */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    /* Centralização do conteúdo */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* 4. ELEMENTOS DA HOME */
+/* Título: Voltando à primeira versão que você aprovou */
+.titulo-app {
+    font-family: var(--fonte-titulo);
+    color: #fff9e6;
+    /* Tom mais claro e iluminado */
+    font-size: 2.8rem;
+    text-transform: uppercase;
+    /* Força tudo para MAIÚSCULAS */
+    letter-spacing: 4px;
+    /* Aumentei um pouco para ficar mais imponente */
+
+    /* Brilho mais nítido e sombra de contorno para destacar do fundo */
+    text-shadow:
+        0 0 12px rgba(255, 215, 0, 0.4),
+        2px 2px 4px rgba(0, 0, 0, 0.9);
+    margin-bottom: 5px;
+}
+
+.subtitulo {
+    font-family: var(--fonte-texto);
+    color: #ffffff;
+    /* Branco total para maior clareza */
+    font-size: 0.9rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    opacity: 0.9;
+    margin-bottom: 40px;
+}
+
+.texto-introducao {
+    font-family: var(--fonte-texto);
+    color: #ffffff;
+    line-height: 1.8;
+    max-width: 80%;
+    margin: 0 auto;
+    font-weight: 400;
+
+    /* Em vez de 4 sombras retas, usamos uma 'nuvem' escura atrás da letra */
+    /* 0 0 10px cria um brilho preto suave em volta de toda a letra */
+    text-shadow:
+        0 0 10px rgba(0, 0, 0, 0.9),
+        1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.pergunta-sentimento {
+    font-family: var(--fonte-titulo);
+    color: #fff9e6;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+
+    /* Para a pergunta, que fica sobre a moça, a aura precisa ser um pouco mais forte */
+    text-shadow:
+        0 0 15px rgba(0, 0, 0, 1),
+        2px 2px 5px rgba(0, 0, 0, 0.9);
+}
+
+.botao-iniciar {
+    background-color: var(--cor-vermelho-rubi);
+    color: #ffffff;
+    font-family: var(--fonte-titulo);
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 0 20px var(--cor-vermelho-rubi);
+    transition: transform 0.2s;
+    margin-top: 35vh;
+    /* Traz botão para área do peito (compensando o container que subiu) */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: batimento 2s infinite ease-in-out;
+}
+
+.tela-inicial {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    padding-top: 10vh;
+    /* Ajuste global para o título ficar no céu */
+}
+
+/* O texto longo: Mais suave para não cansar a vista */
+.texto-introducao {
+    font-family: var(--fonte-texto);
+    color: var(--cor-texto-corpo);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    max-width: 85%;
+    margin: 0 auto;
+    font-weight: 300;
+}
+
+.pergunta-sentimento {
+    color: var(--cor-dourado-texto);
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 1);
+    /* Sombra total para garantir leitura */
+}
+
+/* =========================================
+   ESTILOS DO PAINEL DE EMOÇÕES (MODAL)
+========================================= */
+
+#painel-emocoes {
+    display: none !important;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    /* Efeito Vidro (Glassmorphism) Luxuoso */
+    background: rgba(10, 14, 26, 0.6);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    padding: 30px 20px 20px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    /* Borda dourada sutil */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 215, 0, 0.05);
+
+    z-index: 1000;
+    width: 90%;
+    max-width: 450px;
+
+    /* Limita o tamanho e cria estrutura pra rolagem */
+    max-height: 75vh;
+}
+
+#painel-emocoes.ativo {
+    display: flex !important;
+    flex-direction: column;
+}
+
+/* Título dentro do Painel */
+.titulo-painel {
+    font-family: var(--fonte-titulo);
+    color: var(--cor-dourado-brilho);
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+/* Container da Lista com Rolagem */
+.grade-emocoes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    /* Espaço de respiro entre cada botão */
+
+    /* Ativando a rolagem vertical */
+    overflow-y: auto;
+    padding-right: 10px;
+    /* Espaço pra barra de rolagem não engolir o texto */
+
+    /* Para não ficar encostado nas bordas do painel */
+    max-height: calc(75vh - 100px);
+}
+
+/* Estilo elegante da Barra de Rolagem */
+.grade-emocoes::-webkit-scrollbar {
+    width: 6px;
+}
+
+.grade-emocoes::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.grade-emocoes::-webkit-scrollbar-thumb {
+    background: rgba(255, 215, 0, 0.4);
+    /* Dourado esfumaçado */
+    border-radius: 10px;
+}
+
+.grade-emocoes::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 215, 0, 0.7);
+}
+
+/* O Novo Botão da Lista (Sem cara de botão, mais como link de menu) */
+.grade-emocoes button {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.85);
+    /* Branco suave */
+    font-family: var(--fonte-texto);
+    font-size: 1.1rem;
+    font-weight: 300;
+    text-align: left;
+
+    padding: 15px 20px;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    /* Linha divisória fina */
+    border-radius: 8px;
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    /* Evita que texto longo quebre de forma feia */
+    white-space: normal;
+    line-height: 1.4;
+}
+
+/* O último botão não precisa da linha embaixo */
+.grade-emocoes button:last-child {
+    border-bottom: none;
+}
+
+/* Efeito ao passar o mouse / tocar */
+.grade-emocoes button:hover,
+.grade-emocoes button:active {
+    background: rgba(255, 215, 0, 0.1);
+    /* Fundo dourado quase transparente */
+    color: var(--cor-dourado-brilho);
+    /* O texto acende em dourado */
+    transform: translateX(10px);
+    /* Botão desliza sutilmente pra direita */
+    border-bottom-color: transparent;
+}
+
+/* =========================================
+   ESTILOS DA TELA DE LEITURA (tiragem.html)
+========================================= */
+
+.tela-leitura {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.cabecalho-leitura {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.botao-voltar {
+    color: var(--cor-dourado-texto);
+    text-decoration: none;
+    font-family: var(--fonte-texto);
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.botao-voltar:hover {
+    color: var(--cor-dourado-brilho);
+    transform: translateX(-5px);
+}
+
+.painel-leitura {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: center;
+    background: rgba(10, 14, 26, 0.7);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    width: 100%;
+    max-width: 900px;
+}
+
+.container-imagem {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.placeholder-carta {
+    width: 100%;
+    max-width: 300px;
+    aspect-ratio: 2 / 3;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(0, 0, 0, 0.5));
+    border: 2px dashed rgba(255, 215, 0, 0.4);
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(255, 215, 0, 0.5);
+    font-family: var(--fonte-titulo);
+    font-size: 1.5rem;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+.imagem-carta {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), inset 0 0 10px rgba(255, 215, 0, 0.2);
+    /* Quando você colocar as imagens, ativaremos isso. Agora tá escondido pra dar lugar ao placeholder. */
+    display: none;
+}
+
+.conteudo-leitura {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.titulo-carta {
+    font-family: var(--fonte-titulo);
+    color: var(--cor-dourado-brilho);
+    font-size: 2.2rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.texto-carta {
+    font-family: var(--fonte-texto);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 30px;
+    white-space: pre-line;
+    /* Respeita as quebras de linha do seu texto */
+}
+
+.botao-secundario {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-family: var(--fonte-texto);
+    font-size: 0.95rem;
+    cursor: not-allowed;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    align-self: flex-start;
+}
+
+/* --- RESPONSIVIDADE PARA TELA DE LEITURA --- */
+
+@media (max-width: 800px) {
+    .painel-leitura {
+        flex-direction: column;
+        padding: 25px;
+        gap: 25px;
+    }
+
+    .conteudo-leitura {
+        text-align: center;
+        align-items: center;
+        /* Centraliza o botão secundário em telas pequenas */
+    }
+
+    .botao-secundario {
+        align-self: center;
+    }
+
+    .titulo-carta {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .painel-leitura {
+        padding: 15px;
+        border-radius: 15px;
+    }
+    
+    .texto-carta {
+        font-size: 1rem;
+    }
+    
+    .titulo-carta {
+        font-size: 1.5rem;
+    }
+}
+
+.botao-iniciar:hover {
+    transform: scale(1.05);
+}
+
+@keyframes batimento {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 15px var(--cor-vermelho-rubi);
+    }
+
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px var(--cor-vermelho-rubi);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 15px var(--cor-vermelho-rubi);
+    }
+}
+
+/* 7. AJUSTES DE TELA (MEDIA QUERIES) - SEMPRE NO FINAL DO ARQUIVO */
+
+/* 1. CELULARES (Telas estreitas) */
+@media (max-width: 600px) {
+    body {
+        background-position: top center;
+    }
+
+    .titulo-app {
+        font-size: 1.8rem;
+        margin-bottom: 5px;
+    }
+
+    .subtitulo {
+        font-size: 0.9rem;
+        padding: 0 20px;
+    }
+
+    .texto-introducao {
+        font-size: 0.95rem;
+        max-width: 95%;
+    }
+
+    .tela-inicial {
+        padding-top: 8vh;
+    }
+
+    .botao-iniciar {
+        margin-top: 25vh;
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+}
+
+/* --- GRUPOS ESPECÍFICOS DE DISPOSITIVOS --- */
+
+/* 2. CELULARES CURTOS (iPhone SE, Galaxy S8+, Z Fold) - Texto e Botão 1 linha pra cima */
+@media (max-width: 400px) and (max-height: 750px),
+(max-width: 350px) {
+    .tela-inicial {
+        padding-top: 4vh !important;
+        /* Subiu ~1 linha do padrão 8vh */
+    }
+
+    .botao-iniciar {
+        margin-top: 21vh !important;
+        /* Subiu ~1 linha do padrão 25vh */
+    }
+}
+
+/* 3. CELULARES ALTOS / LARGOS (iPhone XR, 14 Pro Max, Pixel 7, S20 Ultra, A51, Surface Duo) - Botão 1 linha pra baixo */
+@media (min-width: 400px) and (max-width: 550px) and (min-height: 800px),
+(width: 540px) and (height: 720px) {
+    .botao-iniciar {
+        margin-top: 29vh !important;
+        /* Desceu ~1 linha do padrão 25vh */
+    }
+}
+
+/* 4. TABLETS MÉDIOS (iPad Air) - Botão 1 linha pra cima */
+@media (min-width: 820px) and (max-width: 834px) {
+    body {
+        background-position: top center !important;
+    }
+
+    .tela-inicial {
+        padding-top: 8vh !important;
+    }
+
+    .titulo-app {
+        font-size: 2.2rem;
+        margin-bottom: 5px;
+    }
+
+    .texto-introducao {
+        font-size: 1.1rem;
+        max-width: 90%;
+    }
+
+    .botao-iniciar {
+        margin-top: 36vh !important;
+        /* Estava em 31vh (testa), 35vh original. Vamos tentar 36vh para descer um pouquinho mais pro peito. */
+    }
+}
+
+/* 5. TABLETS GRANDES (iPad Pro) - Botão 2 linhas pra cima */
+@media (min-width: 1024px) and (max-width: 1366px) {
+    body {
+        background-position: top center !important;
+    }
+
+    .tela-inicial {
+        padding-top: 16vh !important;
+        /* Texto tava bom (desceu 2 linhas do 8vh), mas vamos checar o botão! */
+    }
+
+    .titulo-app {
+        font-size: 2.2rem;
+        margin-bottom: 5px;
+    }
+
+    .texto-introducao {
+        font-size: 1.1rem;
+        max-width: 90%;
+    }
+
+    .botao-iniciar {
+        margin-top: 37vh !important;
+        /* Estava em 27vh (testa) depois 35vh original. Vamos tentar 37vh pra descer bem do rosto. */
+    }
+}
+
+/* 6. DESKTOPS E NOTEBOOKS (Telas Largas) */
+@media (min-width: 1367px) {
+    body {
+        /* Para telas muito largas, centralizar totalmente a imagem distribui o corte entre cima e baixo, mantendo a moça e as cartas do meio visíveis */
+        background-size: cover !important;
+        background-position: center center !important;
+    }
+
+    .tela-inicial {
+        /* Desce o texto forçado mais ou menos uma "linha". Antes era 20vh, subiu pra 24vh */
+        padding-top: 24vh !important;
+    }
+
+    .botao-iniciar {
+        /* Para o botão não descer junto com o texto pro umbigo dela, eu compenso reduzindo a margem aqui um pouquinho */
+        margin-top: 21vh !important;
+    }
+}
+
+/* 11. CONTATO WHATSAPP (TIRAGEM) */
+.contato-container {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+}
+
+.texto-contato {
+    font-size: 0.95rem;
+    color: var(--cor-perola);
+    font-family: var(--fonte-titulo);
+    line-height: 1.4;
+    max-width: 90%;
+}
+
+.botao-whatsapp {
+    background: linear-gradient(135deg, rgba(37, 211, 102, 0.1) 0%, rgba(18, 140, 126, 0.3) 100%);
+    border: 1px solid rgba(37, 211, 102, 0.4);
+    color: var(--cor-perola);
+    padding: 0.8rem 2rem;
+    font-family: var(--fonte-texto);
+    font-weight: 500;
+    font-size: 1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    display: inline-block;
+    backdrop-filter: blur(5px);
+}
+
+.botao-whatsapp:hover {
+    background: linear-gradient(135deg, rgba(37, 211, 102, 0.25) 0%, rgba(18, 140, 126, 0.5) 100%);
+    box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+    transform: translateY(-2px);
+    border-color: rgba(37, 211, 102, 0.8);
+    color: #fff;
+}
