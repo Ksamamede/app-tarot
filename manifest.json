@@ -1,0 +1,21 @@
+{
+  "name": "App Tarot",
+  "short_name": "Tarot",
+  "description": "Meu Refúgio Tarot - Um espaço para acolher o presente.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0a0e1a",
+  "theme_color": "#0a0e1a",
+  "icons": [
+    {
+      "src": "./imagens/home.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./imagens/home.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
