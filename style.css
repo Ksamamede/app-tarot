@@ -123,9 +123,9 @@ body {
     cursor: pointer;
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
     transition: transform 0.2s;
-    margin-top: 35vh;
-    /* Traz botão para área do peito (compensando o container que subiu) */
-    display: flex;
+    margin-top: auto;
+    /* Botão empurrado para o final da tela */
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
@@ -141,7 +141,8 @@ body {
     text-align: center;
     width: 100%;
     padding-top: 10vh;
-    /* Ajuste global para o título ficar no céu */
+    min-height: 90vh;
+    padding-bottom: 30px;
 }
 
 /* O texto longo: Mais suave para não cansar a vista */
@@ -536,7 +537,7 @@ body {
     }
 
     .botao-iniciar {
-        margin-top: 25vh;
+        margin-top: auto;
         padding: 12px 30px;
         font-size: 1rem;
     }
@@ -553,8 +554,7 @@ body {
     }
 
     .botao-iniciar {
-        margin-top: 21vh !important;
-        /* Subiu ~1 linha do padrão 25vh */
+        margin-top: auto !important;
     }
 }
 
@@ -562,8 +562,7 @@ body {
 @media (min-width: 400px) and (max-width: 550px) and (min-height: 800px),
 (width: 540px) and (height: 720px) {
     .botao-iniciar {
-        margin-top: 29vh !important;
-        /* Desceu ~1 linha do padrão 25vh */
+        margin-top: auto !important;
     }
 }
 
@@ -588,8 +587,7 @@ body {
     }
 
     .botao-iniciar {
-        margin-top: 36vh !important;
-        /* Estava em 31vh (testa), 35vh original. Vamos tentar 36vh para descer um pouquinho mais pro peito. */
+        margin-top: auto !important;
     }
 }
 
@@ -615,8 +613,7 @@ body {
     }
 
     .botao-iniciar {
-        margin-top: 37vh !important;
-        /* Estava em 27vh (testa) depois 35vh original. Vamos tentar 37vh pra descer bem do rosto. */
+        margin-top: auto !important;
     }
 }
 
@@ -634,8 +631,7 @@ body {
     }
 
     .botao-iniciar {
-        /* Para o botão não descer junto com o texto pro umbigo dela, eu compenso reduzindo a margem aqui um pouquinho */
-        margin-top: 21vh !important;
+        margin-top: auto !important;
     }
 }
 
