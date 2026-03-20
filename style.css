@@ -494,9 +494,10 @@ body {
     height: 200px;
     border-radius: 50%;
     object-fit: cover;
+    object-position: top;
     border: 2px solid var(--cor-dourado-brilho);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
-    display: none;
+    display: block;
 }
 
 .conteudo-sobre {
