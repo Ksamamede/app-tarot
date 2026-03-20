@@ -473,6 +473,48 @@ body {
     }
 }
 
+/* --- TELA SOBRE --- */
+.placeholder-foto {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(0, 0, 0, 0.5));
+    border: 2px dashed rgba(255, 215, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(255, 215, 0, 0.5);
+    font-family: var(--fonte-titulo);
+    font-size: 1.5rem;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+.imagem-perfil {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--cor-dourado-brilho);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+    display: none;
+}
+
+.conteudo-sobre {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.texto-sobre {
+    font-family: var(--fonte-texto);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    font-weight: 300;
+}
+
 @media (max-width: 480px) {
     .painel-leitura {
         padding: 15px;

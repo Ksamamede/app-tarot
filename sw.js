@@ -1,9 +1,10 @@
-const CACHE_NAME = 'tarot-cache-v5';
+const CACHE_NAME = 'tarot-cache-v6';
 const urlsToCache = [
   './',
   './index.html',
   './emocoes.html',
   './tiragem.html',
+  './sobre.html',
   './style.css',
   './script.js',
   './manifest.json',

@@ -33,8 +33,48 @@
                É um espaço para acolher o presente.</p>
 
           <a href="emocoes.html" class="botao-iniciar">Entre</a>
+          
+          <!-- Botão de Instalação Customizado (Escondido por padrão) -->
+          <button id="btn-instalar" class="botao-voltar" style="display: none; margin-top: 20px; cursor: pointer; border: none; padding: 10px 25px; align-self: center;">
+               Baixar o App
+          </button>
+          
+          <a href="sobre.html" style="margin-top: 35px; font-family: var(--fonte-texto); color: rgba(255,255,255,0.4); font-size: 0.85rem; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; transition: color 0.3s;" onmouseover="this.style.color='rgba(255,215,0,0.8)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Conheça a Taróloga</a>
 
      </main>
+
+     <script>
+          // Lógica para mostrar o botão de instalação
+          let promptInstalacao;
+          const btnInstalar = document.getElementById('btn-instalar');
+
+          window.addEventListener('beforeinstallprompt', (e) => {
+               // Impede o Chrome de mostrar o aviso padrão
+               e.preventDefault();
+               // Guarda o evento para usar depois
+               promptInstalacao = e;
+               // Mostra o nosso botão
+               if(btnInstalar) {
+                    btnInstalar.style.display = 'inline-flex';
+               }
+          });
+
+          if(btnInstalar) {
+               btnInstalar.addEventListener('click', async () => {
+                    if (!promptInstalacao) return;
+                    // Mostra o prompt de instalação oficial
+                    promptInstalacao.prompt();
+                    // Aguarda a resposta (Aceitou ou Recusou)
+                    const { outcome } = await promptInstalacao.userChoice;
+                    // Limpa a variável
+                    promptInstalacao = null;
+                    // Esconde o botão se foi instalado
+                    if (outcome === 'accepted') {
+                         btnInstalar.style.display = 'none';
+                    }
+               });
+          }
+     </script>
 
 
 
