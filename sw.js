@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tarot-cache-v4';
+const CACHE_NAME = 'tarot-cache-v5';
 const urlsToCache = [
   './',
   './index.html',
@@ -11,6 +11,7 @@ const urlsToCache = [
 ];
 
 self.addEventListener('install', event => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
@@ -29,11 +30,18 @@ self.addEventListener('activate', event => {
           }
         })
       );
+    }).then(() => {
+      self.clients.claim();
     })
   );
 });
 
 self.addEventListener('fetch', event => {
+  // Ignora requisições do WhatsApp (links wa.me) e outros sites externos
+  if (!event.request.url.startsWith(self.location.origin)) {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request)
       .then(response => {
@@ -51,6 +59,8 @@ self.addEventListener('fetch', event => {
               });
             return response;
         });
+      }).catch(() => {
+        // Fallback or anything if fetch fails
       })
   );
 });
