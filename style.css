@@ -149,7 +149,7 @@ body {
 .texto-introducao {
     font-family: var(--fonte-texto);
     color: var(--cor-texto-corpo);
-    font-size: 1.05rem;
+    font-size: 1.25rem;
     line-height: 1.8;
     max-width: 85%;
     margin: 0 auto;
