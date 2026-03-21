@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tarot-cache-v7';
+const CACHE_NAME = 'tarot-cache-v9';
 const urlsToCache = [
   './',
   './index.html',
@@ -38,30 +38,27 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  // Ignora requisições do WhatsApp (links wa.me) e outros sites externos
+  // Ignora requisições de outras origens
   if (!event.request.url.startsWith(self.location.origin)) {
     return;
   }
 
+  // Estratégia "Network First" (Rede primeiro, depois Cache para uso offline)
   event.respondWith(
-    caches.match(event.request)
+    fetch(event.request)
       .then(response => {
-        if (response) {
-          return response;
+        // Se a rede funcionou, recebemos a versão mais nova e atualizamos o cache
+        if (response && response.status === 200 && response.type === 'basic') {
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseToCache);
+          });
         }
-        return fetch(event.request).then(response => {
-            if(!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-            var responseToCache = response.clone();
-            caches.open(CACHE_NAME)
-              .then(cache => {
-                cache.put(event.request, responseToCache);
-              });
-            return response;
-        });
-      }).catch(() => {
-        // Fallback or anything if fetch fails
+        return response;
+      })
+      .catch(() => {
+        // Se falhar (usuário sem internet), busca a cópia salva no cache
+        return caches.match(event.request);
       })
   );
 });
