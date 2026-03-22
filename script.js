@@ -1,3 +1,46 @@
+const produtosAmazon = [
+    { id: 'vela_mar', titulo: 'Vela Aromática Mar', icone: '🕯️', texto: 'Para purificar o ambiente e acalmar os pensamentos.', link: 'https://amzn.to/4sn48Ln' },
+    { id: 'livro_meditacao', titulo: 'O método de meditação para quem não gosta de meditar', icone: '🧘‍♀️', texto: 'Encontre o silêncio de forma leve e descomplicada.', link: 'https://amzn.to/40JmRF1' },
+    { id: 'kit_chakras', titulo: 'Kit 7 Pedras Chakras 100% Naturais', icone: '✨', texto: 'Para alinhar e proteger sua energia sutil.', link: 'https://amzn.to/4bvBIYk' },
+    { id: 'praticando_agora', titulo: 'Praticando o Poder do Agora', icone: '📖', texto: 'Exercícios vivos para ancorar a mente no presente.', link: 'https://amzn.to/4t6zPZE' },
+    { id: 'poder_agora', titulo: 'O Poder do Agora - Eckhart Tolle', icone: '📚', texto: 'Desperte a serenidade libertando-se da mente.', link: 'https://amzn.to/4bZIzL6' },
+    { id: 'camisa_roda', titulo: 'Camiseta O Tarot: A Roda da Fortuna', icone: '👕', texto: 'Vista a energia de movimento e sorte a seu favor.', link: 'https://amzn.to/4uOYTWE' },
+    { id: 'camisa_sacerdotisa', titulo: 'Camiseta O Tarot: A Sacerdotisa', icone: '👕', texto: 'Conecte-se com sua intuição e sabedoria interior.', link: 'https://amzn.to/4srDGjJ' },
+    { id: 'camisa_mundo', titulo: 'Camiseta O Tarot: O Mundo', icone: '👕', texto: 'Celebre a conclusão e o sucesso em seus ciclos.', link: 'https://amzn.to/4lKHlH3' },
+    { id: 'chaveiro_gato', titulo: 'Chaveiro Wicca Gato Preto Estrelas e Lua', icone: '🐱', texto: 'Um talismã de proteção, mistério e confiança.', link: 'https://amzn.to/4bAg85a' }
+];
+
+const mapeamentoProdutos = {
+    'A Roda da Fortunajpg.jpg': 'camisa_roda',
+    'A Sacerdotisa.jpg': 'camisa_sacerdotisa',
+    'O Mundo.jpg': 'camisa_mundo',
+    'Rainha de Paus.jpg': 'chaveiro_gato',
+    'Temperança.jpg': 'vela_mar',
+    'Cavaleiro de Espadas.jpg': 'livro_meditacao',
+    'O Dependurado.jpg': 'praticando_agora',
+    'Pajem de Espadas.jpg': 'livro_meditacao',
+    'A Lua.jpg': 'vela_mar',
+    'Pajem  de Paus.jpg': 'kit_chakras',
+    'A Imperatriz.jpg': 'vela_mar',
+    'O Louco.jpg': 'kit_chakras',
+    'Os Enamoradosjpg.jpg': 'poder_agora',
+    'O Sol.jpg': 'poder_agora',
+    'O Julgamento.jpg': 'praticando_agora',
+    'Rainha de Copas.jpg': 'poder_agora',
+    'A Torre.jpg': 'livro_meditacao',
+    'O Diabo.jpg': 'poder_agora',
+    'Rainha de Ouros.jpg': 'kit_chakras',
+    'Cavaleiro de Copas.jpg': 'vela_mar',
+    'Cavaleiro de Paus.jpg': 'praticando_agora',
+    'Rainha de Espadas.jpg': 'livro_meditacao',
+    'Rei de Copas.jpg': 'kit_chakras',
+    'O Mago.jpg': 'vela_mar',
+    'Pajem de Copas.jpg': 'kit_chakras',
+    'Pajem de Ouros.jpg': 'praticando_agora',
+    'O Hierofante.jpg': 'kit_chakras',
+    'A Estrela.jpg': 'poder_agora'
+};
+
 const dadosTarot = {
     'Ansiedade': {
         imagem: 'Temperança.jpg',
@@ -199,4 +242,29 @@ function carregarLeitura() {
 
     // Colocar o texto usando innerHTML para o HTML ler os <br>
     textoElemento.innerHTML = textoFormatado;
+
+    // ----------- INJEÇÃO DA RECOMENDAÇÃO AMAZON -----------
+    const containerAmazon = document.getElementById('container-amazon');
+    if (containerAmazon) {
+        // Encontra qual é o ID do produto para esta carta, se não achar usa 'vela_mar' como padrão seguro
+        const produtoId = mapeamentoProdutos[leitura.imagem] || 'vela_mar'; 
+        const produto = produtosAmazon.find(p => p.id === produtoId);
+        
+        if (produto) {
+            containerAmazon.innerHTML = `
+                <div class="cartao-amazon">
+                    <p class="amazon-disclaimer">✨ Para o seu momento ✨</p>
+                    <div class="amazon-conteudo">
+                        <div class="amazon-icone">${produto.icone}</div>
+                        <div class="amazon-textos">
+                            <h4>${produto.titulo}</h4>
+                            <p>${produto.texto}</p>
+                            <a href="${produto.link}" target="_blank" class="botao-amazon">Ver na Amazon</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            containerAmazon.style.display = 'block';
+        }
+    }
 }
