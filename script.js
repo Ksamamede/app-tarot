@@ -259,7 +259,7 @@ function carregarLeitura() {
                         <div class="amazon-textos">
                             <h4>${produto.titulo}</h4>
                             <p>${produto.texto}</p>
-                            <a href="${produto.link}" target="_blank" class="botao-amazon">Ver na Amazon</a>
+                            <a href="${produto.link}" target="_blank" rel="nofollow noopener" class="botao-amazon">Ver na Amazon</a>
                         </div>
                     </div>
                 </div>
