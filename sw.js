@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tarot-cache-v24';
+const CACHE_NAME = 'tarot-cache-v25';
 const urlsToCache = [
   './',
   './index.html',
